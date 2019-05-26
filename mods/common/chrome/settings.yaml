@@ -27,8 +27,8 @@ Background@SETTINGS_PANEL:
 				Types: Music
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM -  HEIGHT) / 2
-	Width: 600
-	Height: 450
+	Width: 640
+	Height: 480
 	Children:
 		Label@SETTINGS_LABEL_TITLE:
 			Y: 20

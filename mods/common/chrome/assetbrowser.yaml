@@ -3,8 +3,8 @@ Background@ASSETBROWSER_PANEL:
 		SupportedFormats: .shp, .r8, .tmp, .tem, .des, .sno, .int, .vqa
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM - HEIGHT) / 2
-	Width: 700
-	Height: 500
+	Width: 808
+	Height: 600
 	Children:
 		LogicTicker@ANIMATION_TICKER:
 		ColorPreviewManager@COLOR_MANAGER:
@@ -18,7 +18,7 @@ Background@ASSETBROWSER_PANEL:
 		Label@SOURCE_SELECTOR_DESC:
 			X: 20
 			Y: 35
-			Width: 160
+			Width: 185
 			Height: 25
 			Font: TinyBold
 			Align: Center
@@ -26,15 +26,15 @@ Background@ASSETBROWSER_PANEL:
 		DropDownButton@SOURCE_SELECTOR:
 			X: 20
 			Y: 60
-			Width: 160
+			Width: 185
 			Height: 25
 			Font: Bold
 			Text: Folders
 		ScrollPanel@ASSET_LIST:
 			X: 20
 			Y: 90
-			Width: 160
-			Height: 275
+			Width: 185
+			Height: 360
 			CollapseHiddenChildren: True
 			Children:
 				ScrollItem@ASSET_TEMPLATE:
@@ -50,16 +50,16 @@ Background@ASSETBROWSER_PANEL:
 							Height: 25
 		Label@FILENAME_DESC:
 			X: 20
-			Y: 370
-			Width: 160
+			Y: 460
+			Width: 185
 			Height: 25
 			Font: TinyBold
 			Align: Center
 			Text: Filter by name
 		TextField@FILENAME_INPUT:
 			X: 20
-			Y: 395
-			Width: 160
+			Y: 485
+			Width: 185
 			Height: 25
 			Type: Filename
 		Label@PALETTE_DESC:
@@ -88,10 +88,10 @@ Background@ASSETBROWSER_PANEL:
 					Width: PARENT_RIGHT - 35
 					Height: PARENT_BOTTOM - 12
 		Background@SPRITE_BG:
-			X: 190
+			X: 215
 			Y: 90
-			Width: 490
-			Height: 330
+			Width: PARENT_RIGHT - 195 - 2*20
+			Height: PARENT_BOTTOM - 180
 			Background: dialog3
 			Children:
 				Sprite@SPRITE:
@@ -109,8 +109,8 @@ Background@ASSETBROWSER_PANEL:
 					Visible: false
 					Text: Error displaying file. See assetbrowser.log for details.
 		Container@FRAME_SELECTOR:
-			X: 190
-			Y: 425
+			X: 215
+			Y: PARENT_BOTTOM - 85
 			Children:
 				Button@BUTTON_PREV:
 					X: 0
@@ -186,15 +186,15 @@ Background@ASSETBROWSER_PANEL:
 				Slider@FRAME_SLIDER:
 					X: 140
 					Y: 3
-					Width: 300
+					Width: 385
 					Height: 20
 					MinimumValue: 0
 				Label@FRAME_COUNT:
-					X: 445
-					Width: 40
+					X: 520
+					Width: 50
 					Height: 25
 					Font: TinyBold
-					Align: Left
+					Align: Right
 		Button@CLOSE_BUTTON:
 			Key: escape
 			X: PARENT_RIGHT - 180

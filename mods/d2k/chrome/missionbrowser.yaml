@@ -3,7 +3,7 @@ Background@MISSIONBROWSER_PANEL:
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM - HEIGHT) / 2
 	Width: 880
-	Height: 591
+	Height: 600
 	Children:
 		Label@MISSIONBROWSER_TITLE:
 			Y: 20
@@ -16,7 +16,7 @@ Background@MISSIONBROWSER_PANEL:
 			X: 20
 			Y: 50
 			Width: 190
-			Height: 405
+			Height: 414
 			Children:
 				ScrollItem@HEADER:
 					BaseName: scrollheader
@@ -41,27 +41,27 @@ Background@MISSIONBROWSER_PANEL:
 							Height: 25
 		Label@DIFFICULTY_DESC:
 			X: 210 - WIDTH - 125
-			Y: 468
+			Y: 477
 			Width: 56
 			Height: 25
 			Text: Difficulty:
 			Align: Right
 		DropDownButton@DIFFICULTY_DROPDOWNBUTTON:
 			X: 210 - WIDTH
-			Y: 468
+			Y: 477
 			Width: 120
 			Height: 25
 			Font: Regular
 		Label@GAMESPEED_DESC:
 			X: 210 - WIDTH - 125
-			Y: 508
+			Y: 517
 			Width: 120
 			Height: 25
 			Text: Speed:
 			Align: Right
 		DropDownButton@GAMESPEED_DROPDOWNBUTTON:
 			X: 210 - WIDTH
-			Y: 508
+			Y: 517
 			Width: 120
 			Height: 25
 			Font: Regular
@@ -69,7 +69,7 @@ Background@MISSIONBROWSER_PANEL:
 			X: 220
 			Y: 50
 			Width: 642
-			Height: 800
+			Height: 809
 			Children:
 				Background@MISSION_BG:
 					Width: PARENT_RIGHT
@@ -87,7 +87,7 @@ Background@MISSIONBROWSER_PANEL:
 				ScrollPanel@MISSION_DESCRIPTION_PANEL:
 					Y: 337
 					Width: PARENT_RIGHT
-					Height: 146
+					Height: 155
 					Children:
 						Label@MISSION_DESCRIPTION:
 							X: 4
@@ -142,7 +142,7 @@ Background@MISSIONBROWSER_PANEL:
 			X: 220
 			Y: 50
 			Width: 642
-			Height: 483
+			Height: 501
 			Background: dialog3
 			Children:
 				VqaPlayer@MISSION_VIDEO:

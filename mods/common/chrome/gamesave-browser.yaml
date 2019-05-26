@@ -2,8 +2,8 @@ Background@GAMESAVE_BROWSER_PANEL:
 	Logic: GameSaveBrowserLogic
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM - HEIGHT) / 2
-	Width: 600
-	Height: 400
+	Width: 640
+	Height: 480
 	Children:
 		Label@LOAD_TITLE:
 			Width: PARENT_RIGHT

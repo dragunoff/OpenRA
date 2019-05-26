@@ -2,17 +2,17 @@ Background@REPLAYBROWSER_PANEL:
 	Logic: ReplayBrowserLogic
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM - HEIGHT) / 2
-	Width: 780
-	Height: 535
+	Width: 808
+	Height: 600
 	Children:
 		Container@FILTER_AND_MANAGE_CONTAINER:
 			X: 20
 			Y: 20
-			Width: 280
+			Width: 270
 			Height: PARENT_BOTTOM - 75
 			Children:
 				Container@FILTERS:
-					Width: 280
+					Width: PARENT_RIGHT
 					Height: 320
 					Children:
 						Label@FILTERS_TITLE:
@@ -153,9 +153,9 @@ Background@REPLAYBROWSER_PANEL:
 							Text: Delete All
 							Font: Bold
 		Container@REPLAY_LIST_CONTAINER:
-			X: 310
+			X: 300
 			Y: 20
-			Width: 245
+			Width: 285
 			Height: PARENT_BOTTOM - 20 - 55
 			Children:
 				Label@REPLAYBROWSER_LABEL_TITLE:
