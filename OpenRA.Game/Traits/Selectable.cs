@@ -39,6 +39,14 @@ namespace OpenRA.Traits
 		[VoiceReference]
 		public readonly string Voice = "Select";
 
+		[SequenceReference]
+		[Desc("Sequence of the actor that contains the icon.")]
+		public readonly string Icon = "icon";
+
+		[PaletteReference]
+		[Desc("Palette used for the selection icon.")]
+		public readonly string IconPalette = "chrome";
+
 		public override object Create(ActorInitializer init) { return new Selectable(init.Self, this); }
 	}
 

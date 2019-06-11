@@ -21,6 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 	{
 		public string ProductionTabsWidget = null;
 		public string ProductionPaletteWidget = null;
+		public string SelectionPaletteWidget = null;
 
 		public object Create(ActorInitializer init) { return new ProductionQueueFromSelection(init.World, this); }
 	}
@@ -30,6 +31,7 @@ namespace OpenRA.Mods.Common.Traits
 		readonly World world;
 		readonly Lazy<ProductionTabsWidget> tabsWidget;
 		readonly Lazy<ProductionPaletteWidget> paletteWidget;
+		readonly Lazy<SelectionPaletteWidget> selectionPaletteWidget;
 
 		public ProductionQueueFromSelection(World world, ProductionQueueFromSelectionInfo info)
 		{
@@ -37,6 +39,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			tabsWidget = Exts.Lazy(() => Ui.Root.GetOrNull(info.ProductionTabsWidget) as ProductionTabsWidget);
 			paletteWidget = Exts.Lazy(() => Ui.Root.GetOrNull(info.ProductionPaletteWidget) as ProductionPaletteWidget);
+			selectionPaletteWidget = Exts.Lazy(() => Ui.Root.GetOrNull(info.SelectionPaletteWidget) as SelectionPaletteWidget);
 		}
 
 		void INotifySelection.SelectionChanged()
@@ -63,12 +66,20 @@ namespace OpenRA.Mods.Common.Traits
 			}
 
 			if (queue == null || !queue.BuildableItems().Any())
+			{
+				if (selectionPaletteWidget.Value != null)
+					selectionPaletteWidget.Value.IsProducer = false;
+
 				return;
+			}
 
 			if (tabsWidget.Value != null)
 				tabsWidget.Value.CurrentQueue = queue;
 			else if (paletteWidget.Value != null)
 				paletteWidget.Value.CurrentQueue = queue;
+
+			if (selectionPaletteWidget.Value != null)
+				selectionPaletteWidget.Value.IsProducer = true;
 		}
 	}
 }

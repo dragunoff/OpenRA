@@ -416,6 +416,7 @@ namespace OpenRA.Traits
 	public interface ISelection
 	{
 		int Hash { get; }
+		int ManualHash { get; }
 		IEnumerable<Actor> Actors { get; }
 
 		void Add(Actor a);

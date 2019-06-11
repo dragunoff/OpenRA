@@ -318,3 +318,21 @@ Background@SUPPORT_POWER_TOOLTIP:
 			Y: 24
 			Font: TinyBold
 			VAlign: Top
+
+Background@SELECTION_PALETTE_TOOLTIP:
+	Logic: SelectionPaletteTooltipLogic
+	Background: dialog4
+	Width: 200
+	Height: 32
+	Children:
+		Label@NAME:
+			X: 7
+			Y: 4
+			Height: 20
+			Font: Bold
+		Label@HOTKEY:
+			Visible: false
+			Y: 4
+			Height: 20
+			TextColor: FFFF00
+			Font: Bold

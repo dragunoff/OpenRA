@@ -1136,6 +1136,30 @@ Container@PLAYER_WIDGETS:
 		LogicKeyListener@CONTROLGROUP_KEYHANDLER:
 			Logic: ControlGroupLogic
 		LogicTicker@SIDEBAR_TICKER:
+		Container@SELECTION_CONTENTS_BIN:
+			Logic: SelectionPaletteBinLogic
+			X: WINDOW_RIGHT - 15
+			Y: WINDOW_BOTTOM - 15
+			Children:
+				Container@PALETTE_BACKGROUND:
+					X: 0 - 1
+					Y: 0 - 1
+					Children:
+						Background@ICON_TEMPLATE:
+							Logic: AddFactionSuffixLogic
+							Width: 34
+							Height: 26
+							Background: panel-black
+				SelectionPalette@SELECTION_PALETTE:
+					X: 0
+					Y: 0
+					TooltipTemplate: SELECTION_PALETTE_TOOLTIP_FACTIONSUFFIX
+					TooltipContainer: TOOLTIP_CONTAINER
+					Columns: 5
+					IconSize: 32, 24
+					IconScale: 0,5
+					CountOffset: 2, 0
+					Origin: bottom-right
 		Container@SUPPORT_POWERS:
 			Logic: SupportPowerBinLogic
 			X: 10

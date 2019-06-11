@@ -443,7 +443,7 @@ Container@PLAYER_WIDGETS:
 							ImageCollection: power-icons
 							ImageName: power-normal
 		Container@SIDEBAR_PRODUCTION:
-			Logic: ClassicProductionLogic
+			Logic: ClassicSidebarTabsLogic
 			X: WINDOW_RIGHT - 250
 			Y: 300
 			Width: 238
@@ -477,6 +477,19 @@ Container@PLAYER_WIDGETS:
 					IconSpriteOffset: -1, -1
 					HotkeyPrefix: Production
 					HotkeyCount: 24
+					MinimumRows: 5
+					MaximumRows: 6
+				SelectionPalette@SELECTION_PALETTE:
+					X: 42
+					Y: 1
+					TooltipContainer: TOOLTIP_CONTAINER
+					IconSize: 62, 46
+					IconMargin: 1, 1
+					IconSpriteOffset: -1, -1
+					HotkeyPrefix: Production
+					HotkeyCount: 24
+					MinimumRows: 5
+					MaximumRows: 6
 				Container@PALETTE_FOREGROUND:
 					X: 40
 					Y: 0 - 1
@@ -588,9 +601,25 @@ Container@PLAYER_WIDGETS:
 									X: 6
 									Y: 6
 									ImageCollection: production-icons
+						Button@SELECTION_TAB_BUTTON:
+							Logic: AddFactionSuffixLogic
+							Y: 193
+							Width: 28
+							Height: 28
+							VisualHeight: 0
+							Background: sidebar-button
+							TooltipText: Selection
+							TooltipContainer: TOOLTIP_CONTAINER
+							Key: SelectionTab
+							Children:
+								Image@ICON:
+									X: 6
+									Y: 6
+									ImageCollection: production-icons
+									ImageName: selection
 						Button@SCROLL_UP_BUTTON:
 							Logic: AddFactionSuffixLogic
-							Y: 186
+							Y: 232
 							Width: 28
 							Height: 22
 							VisualHeight: 0
@@ -605,7 +634,7 @@ Container@PLAYER_WIDGETS:
 									ImageName: up_arrow
 						Button@SCROLL_DOWN_BUTTON:
 							Logic: AddFactionSuffixLogic
-							Y: 211
+							Y: 257
 							Width: 28
 							Height: 22
 							VisualHeight: 0
