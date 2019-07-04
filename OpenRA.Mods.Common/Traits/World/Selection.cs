@@ -26,8 +26,10 @@ namespace OpenRA.Mods.Common.Traits
 	{
 		public int Hash { get; private set; }
 		public IEnumerable<Actor> Actors { get { return actors; } }
+		public IEnumerable<Actor> BackgroundActors { get { return backgroundActors; } }
 
 		readonly HashSet<Actor> actors = new HashSet<Actor>();
+		readonly HashSet<Actor> backgroundActors = new HashSet<Actor>();
 		INotifySelection[] worldNotifySelection;
 
 		public Selection(SelectionInfo info) { }
@@ -47,6 +49,9 @@ namespace OpenRA.Mods.Common.Traits
 
 		public virtual void Add(Actor a)
 		{
+			if (backgroundActors.Contains(a))
+				backgroundActors.Remove(a);
+
 			actors.Add(a);
 			UpdateHash();
 
@@ -57,13 +62,16 @@ namespace OpenRA.Mods.Common.Traits
 				ns.SelectionChanged();
 		}
 
-		public virtual void Remove(Actor a)
+		public virtual void Remove(Actor a, bool toBackground = false)
 		{
 			if (actors.Remove(a))
 			{
 				UpdateHash();
 				foreach (var ns in worldNotifySelection)
 					ns.SelectionChanged();
+
+				if (toBackground)
+					backgroundActors.Add(a);
 			}
 		}
 
@@ -80,8 +88,11 @@ namespace OpenRA.Mods.Common.Traits
 				UpdateHash();
 		}
 
-		public bool Contains(Actor a)
+		public bool Contains(Actor a, bool inBackground = false)
 		{
+			if (inBackground)
+				return backgroundActors.Contains(a);
+
 			return actors.Contains(a);
 		}
 
@@ -108,6 +119,9 @@ namespace OpenRA.Mods.Common.Traits
 					actors.UnionWith(newSelection);
 				}
 			}
+
+			if (!isCombine)
+				backgroundActors.Clear();
 
 			UpdateHash();
 

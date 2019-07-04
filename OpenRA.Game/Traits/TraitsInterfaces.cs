@@ -419,10 +419,11 @@ namespace OpenRA.Traits
 	{
 		int Hash { get; }
 		IEnumerable<Actor> Actors { get; }
+		IEnumerable<Actor> BackgroundActors { get; }
 
 		void Add(Actor a);
-		void Remove(Actor a);
-		bool Contains(Actor a);
+		void Remove(Actor a, bool toBackground = false);
+		bool Contains(Actor a, bool inBackground = false);
 		void Combine(World world, IEnumerable<Actor> newSelection, bool isCombine, bool isClick);
 		void Clear();
 		void DoControlGroup(World world, WorldRenderer worldRenderer, int group, Modifiers mods, int multiTapCount);

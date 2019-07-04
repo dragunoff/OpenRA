@@ -29,6 +29,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public readonly bool RenderSelectionBox = true;
 
 		public readonly Color SelectionBoxColor = Color.White;
+		public readonly Color BackgroundSelectionBoxColor = Color.Gray;
 
 		public readonly string Image = "pips";
 
@@ -88,6 +89,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		IEnumerable<IRenderable> DrawDecorations(Actor self, WorldRenderer wr)
 		{
 			var selected = self.World.Selection.Contains(self);
+			var selectedInBackground = self.World.Selection.Contains(self, true);
 			var regularWorld = self.World.Type == WorldType.Regular;
 			var statusBars = Game.Settings.Game.StatusBars;
 			var bounds = decorationBounds.FirstNonEmptyBounds(self, wr);
@@ -107,6 +109,9 @@ namespace OpenRA.Mods.Common.Traits.Render
 
 			if (Info.RenderSelectionBox && selected)
 				yield return new SelectionBoxRenderable(self, bounds, Info.SelectionBoxColor);
+
+			if (Info.RenderSelectionBox && selectedInBackground)
+				yield return new SelectionBoxRenderable(self, bounds, Info.BackgroundSelectionBoxColor);
 
 			if (Info.RenderSelectionBars && (displayHealth || displayExtra))
 				yield return new SelectionBarsRenderable(self, bounds, displayHealth, displayExtra);
