@@ -85,7 +85,6 @@ namespace OpenRA.Graphics
 							throw new InvalidDataException("Sprite type mismatch. Terrain sprites must all be either Indexed or RGBA.");
 
 						var s = sheetBuilder.Allocate(f.Size, zRamp, offset);
-						Console.WriteLine("{0} {1} {2}", i, t.Value.Id, f.Type);
 						Util.FastCopyIntoChannel(s, f.Data);
 
 						if (tileset.EnableDepth)
