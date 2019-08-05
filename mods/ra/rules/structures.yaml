@@ -666,6 +666,8 @@ DOME:
 	ProvidesPrerequisite@buildingname:
 	ExternalCondition@JAMMED:
 		Condition: jammed
+	RenderSprites:
+		Scale: 0.25
 
 PBOX:
 	Inherits: ^Defense

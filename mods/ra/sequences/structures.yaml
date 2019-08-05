@@ -207,8 +207,9 @@ kenn:
 	icon: kennicon
 
 dome:
-	idle:
+	idle: rdome.png
 		Offset: 0,-4
+		AddExtension: false
 	damaged-idle:
 		Start: 1
 		Offset: 0,-4
