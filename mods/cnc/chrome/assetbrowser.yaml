@@ -1,6 +1,6 @@
 Container@ASSETBROWSER_PANEL:
 	Logic: AssetBrowserLogic
-		SupportedFormats: .shp, .tem, .des, .sno, .jun, .vqa
+		SupportedFormats: .shp, .tem, .des, .sno, .jun, .vqa, .png
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM - HEIGHT) / 2
 	Width: 695
