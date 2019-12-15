@@ -137,12 +137,12 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			chatText.OnTabKey = () =>
 			{
-				var previousText = chatText.Text;
-				chatText.Text = tabCompletion.Complete(chatText.Text);
-				chatText.CursorPosition = chatText.Text.Length;
-
-				if (chatText.Text == previousText && !disableTeamChat)
+				if (Game.GetModifierKeys().HasModifier(Modifiers.Shift) && !disableTeamChat)
 					teamChat ^= true;
+				else {
+					chatText.Text = tabCompletion.Complete(chatText.Text);
+					chatText.CursorPosition = chatText.Text.Length;
+				}
 
 				return true;
 			};
@@ -169,6 +169,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 					if (!chatChrome.IsVisible() && (e.Key == Keycode.RETURN || e.Key == Keycode.KP_ENTER))
 					{
+						// If enabled, [Enter] opens all chat and [Shift+Enter] opens team chat
+						teamChat = !disableTeamChat & !Game.GetModifierKeys().HasModifier(Modifiers.Shift);
+
 						OpenChat();
 						return true;
 					}

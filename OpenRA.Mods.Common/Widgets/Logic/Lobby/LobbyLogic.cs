@@ -425,14 +425,12 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			chatTextField.OnTabKey = () =>
 			{
-				var previousText = chatTextField.Text;
+				if (Game.GetModifierKeys().HasModifier(Modifiers.Shift) && !disableTeamChat)
+					return SwitchTeamChat();
+
 				chatTextField.Text = tabCompletion.Complete(chatTextField.Text);
 				chatTextField.CursorPosition = chatTextField.Text.Length;
-
-				if (chatTextField.Text == previousText)
-					return SwitchTeamChat();
-				else
-					return true;
+				return true;
 			};
 
 			chatTextField.OnEscKey = () => { chatTextField.Text = ""; return true; };
