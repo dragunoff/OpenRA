@@ -64,9 +64,9 @@ namespace OpenRA.Mods.Common.SpriteLoaders
 
 			for (var i = 0; i < frames.Length; i++)
 			{
-				var frameStart = frameRegions[i].X + frameRegions[i].Y * png.Width;
-				var frameSize = new Size(frameRegions[i].Width, frameRegions[i].Height);
 				var pixelLength = png.Palette == null ? 4 : 1;
+				var frameStart = frameRegions[i].X * pixelLength + frameRegions[i].Y * pixelLength * png.Width;
+				var frameSize = new Size(frameRegions[i].Width, frameRegions[i].Height);
 
 				frames[i] = new PngSheetFrame()
 				{
