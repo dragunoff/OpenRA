@@ -147,6 +147,7 @@ Hotkeys:
 	common|hotkeys/observer.yaml
 	common|hotkeys/production-common.yaml
 	common|hotkeys/production-peractor.yaml
+	common|hotkeys/selection-common.yaml
 	common|hotkeys/supportpowers.yaml
 	common|hotkeys/viewport.yaml
 	cnc|hotkeys.yaml

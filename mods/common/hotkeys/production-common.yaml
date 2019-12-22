@@ -50,50 +50,50 @@ Production12: F12
 	Description: Slot 12
 	Types: ProductionSlot, Player
 
-Production13: F1 CTRL
+Production13:
 	Description: Slot 13
 	Types: ProductionSlot, Player
 
-Production14: F2 CTRL
+Production14:
 	Description: Slot 14
 	Types: ProductionSlot, Player
 
-Production15: F3 CTRL
+Production15:
 	Description: Slot 15
 	Types: ProductionSlot, Player
 
-Production16: F4 CTRL
+Production16:
 	Description: Slot 16
 	Types: ProductionSlot, Player
 
-Production17: F5 CTRL
+Production17:
 	Description: Slot 17
 	Types: ProductionSlot, Player
 
-Production18: F6 CTRL
+Production18:
 	Description: Slot 18
 	Types: ProductionSlot, Player
 
-Production19: F7 CTRL
+Production19:
 	Description: Slot 19
 	Types: ProductionSlot, Player
 
-Production20: F8 CTRL
+Production20:
 	Description: Slot 20
 	Types: ProductionSlot, Player
 
-Production21: F9 CTRL
+Production21:
 	Description: Slot 21
 	Types: ProductionSlot, Player
 
-Production22: F10 CTRL
+Production22:
 	Description: Slot 22
 	Types: ProductionSlot, Player
 
-Production23: F11 CTRL
+Production23:
 	Description: Slot 23
 	Types: ProductionSlot, Player
 
-Production24: F12 CTRL
+Production24:
 	Description: Slot 24
 	Types: ProductionSlot, Player
