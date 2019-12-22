@@ -19,6 +19,9 @@ Background@SETTINGS_PANEL:
 			Production Commands:
 				Template: THREE_COLUMN
 				Types: Production, ProductionSlot
+			Selection Commands:
+				Template: THREE_COLUMN
+				Types: SelectionSlot
 			Support Power Commands:
 				Template: THREE_COLUMN
 				Types: SupportPower

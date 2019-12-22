@@ -236,6 +236,9 @@ production-icons: chrome.png
 	ship: 496,48,16,16
 	ship-disabled: 496,64,16,16
 	ship-alert: 496,80,16,16
+	selection: 464,48,16,16
+	selection-disabled: 464,64,16,16
+	selection-alert: 464,80,16,16
 
 order-icons: chrome.png
 	options: 480,0,16,16

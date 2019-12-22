@@ -25,6 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 	public class Selection : ISelection, INotifyCreated, INotifyOwnerChanged, ITick, IGameSaveTraitData
 	{
 		public int Hash { get; private set; }
+		public int ManualHash { get; private set; }
 		public IEnumerable<Actor> Actors { get { return actors; } }
 
 		readonly HashSet<Actor> actors = new HashSet<Actor>();
@@ -37,12 +38,15 @@ namespace OpenRA.Mods.Common.Traits
 			worldNotifySelection = self.TraitsImplementing<INotifySelection>().ToArray();
 		}
 
-		void UpdateHash()
+		void UpdateHash(bool isManual = false)
 		{
 			// Not a real hash, but things checking this only care about checking when the selection has changed
 			// For this purpose, having a false positive (forcing a refresh when nothing changed) is much better
 			// than a false negative (selection state mismatch)
 			Hash += 1;
+
+			if (isManual)
+				ManualHash += 1;
 		}
 
 		public virtual void Add(Actor a)
@@ -109,7 +113,7 @@ namespace OpenRA.Mods.Common.Traits
 				}
 			}
 
-			UpdateHash();
+			UpdateHash(isManual: true);
 
 			foreach (var a in newSelection)
 				foreach (var sel in a.TraitsImplementing<INotifySelected>())
