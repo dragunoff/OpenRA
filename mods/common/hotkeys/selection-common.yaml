@@ -1,0 +1,47 @@
+Selection1: F1 CTRL
+	Description: Slot 1
+	Types: SelectionSlot, Player
+
+Selection2: F2 CTRL
+	Description: Slot 2
+	Types: SelectionSlot, Player
+
+Selection3: F3 CTRL
+	Description: Slot 3
+	Types: SelectionSlot, Player
+
+Selection4: F4 CTRL
+	Description: Slot 4
+	Types: SelectionSlot, Player
+
+Selection5: F5 CTRL
+	Description: Slot 5
+	Types: SelectionSlot, Player
+
+Selection6: F6 CTRL
+	Description: Slot 6
+	Types: SelectionSlot, Player
+
+Selection7: F7 CTRL
+	Description: Slot 7
+	Types: SelectionSlot, Player
+
+Selection8: F8 CTRL
+	Description: Slot 8
+	Types: SelectionSlot, Player
+
+Selection9: F9 CTRL
+	Description: Slot 9
+	Types: SelectionSlot, Player
+
+Selection10: F10 CTRL
+	Description: Slot 10
+	Types: SelectionSlot, Player
+
+Selection11: F11 CTRL
+	Description: Slot 11
+	Types: SelectionSlot, Player
+
+Selection12: F12 CTRL
+	Description: Slot 12
+	Types: SelectionSlot, Player
