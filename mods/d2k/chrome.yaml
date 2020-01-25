@@ -283,6 +283,14 @@ music:
 		prev: 68, 0, 16, 16
 		fastforward: 85, 0, 16, 16
 
+scrollbar:
+	Inherits: ^Glyphs
+	Regions:
+		down_arrow: 119, 0, 16, 16
+		down_pressed: 119, 0, 16, 16
+		up_arrow: 102, 0, 16, 16
+		up_pressed: 102, 0, 16, 16
+
 progressbar-bg:
 	Inherits: button-pressed
 
@@ -419,10 +427,7 @@ arrows-options:
 separators:
 	Inherits: ^Dialog
 	Regions:
-		vertical: 513, 2, 1, 19
-		vertical-hover: 513, 130, 1, 19
-		vertical-pressed: 641, 2, 1, 19
-		vertical-disabled: 513, 258, 1, 19
+		separator: 513, 1, 1, 19
 
 logos:
 	Inherits: ^LoadScreen
