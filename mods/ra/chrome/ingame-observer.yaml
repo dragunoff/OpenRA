@@ -98,7 +98,7 @@ Container@OBSERVER_WIDGETS:
 					Font: Bold
 					VisualHeight: 0
 					Background: sidebar-button-observershroud
-					SeparatorImage: observer-separator
+					Separators: observer-separators
 					Children:
 						LogicKeyListener@SHROUD_KEYHANDLER:
 						Image@FLAG:
@@ -239,7 +239,7 @@ Container@OBSERVER_WIDGETS:
 					Height: 25
 					Font: Bold
 					Background: observer-scrollpanel-button
-					SeparatorImage: observer-separator
+					Separators: observer-separators
 					Children:
 						LogicKeyListener@STATS_DROPDOWN_KEYHANDLER:
 				Container@GRAPH_BG:

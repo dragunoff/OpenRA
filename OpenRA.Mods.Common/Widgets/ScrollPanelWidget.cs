@@ -48,6 +48,7 @@ namespace OpenRA.Mods.Common.Widgets
 		public string Background = "scrollpanel-bg";
 		public string ScrollBarBackground = "scrollpanel-bg";
 		public string Button = "scrollpanel-button";
+		public string Arrows = "arrows";
 		public int ContentHeight;
 		public ILayout Layout;
 		public int MinimumThumbSize = 10;
@@ -198,9 +199,14 @@ namespace OpenRA.Mods.Common.Widgets
 				var upOffset = !upPressed || upDisabled ? 4 : 4 + ButtonDepth;
 				var downOffset = !downPressed || downDisabled ? 4 : 4 + ButtonDepth;
 
-				WidgetUtils.DrawRGBA(ChromeProvider.GetImage("scrollbar", upPressed || upDisabled ? "up_pressed" : "up_arrow"),
+				var upArrowImageName = WidgetUtils.GetStatefulImageName("up", upDisabled, upPressed, upHover);
+				var upArrowImage = ChromeProvider.GetImage(Arrows, upArrowImageName) ?? ChromeProvider.GetImage(Arrows, "up");
+				WidgetUtils.DrawRGBA(upArrowImage,
 					new float2(upButtonRect.Left + upOffset, upButtonRect.Top + upOffset));
-				WidgetUtils.DrawRGBA(ChromeProvider.GetImage("scrollbar", downPressed || downDisabled ? "down_pressed" : "down_arrow"),
+
+				var downArrowImageName = WidgetUtils.GetStatefulImageName("down", downDisabled, downPressed, downHover);
+				var downArrowImage = ChromeProvider.GetImage(Arrows, downArrowImageName) ?? ChromeProvider.GetImage(Arrows, "down");
+				WidgetUtils.DrawRGBA(downArrowImage,
 					new float2(downButtonRect.Left + downOffset, downButtonRect.Top + downOffset));
 			}
 

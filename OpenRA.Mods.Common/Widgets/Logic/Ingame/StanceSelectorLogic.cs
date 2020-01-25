@@ -48,15 +48,16 @@ namespace OpenRA.Mods.Common.Widgets
 		void BindStanceButton(ButtonWidget button, UnitStance stance)
 		{
 			var icon = button.Get<ImageWidget>("ICON");
-			var hasDisabled = ChromeProvider.GetImage(icon.ImageCollection, icon.ImageName + "-disabled") != null;
-			var hasActive = ChromeProvider.GetImage(icon.ImageCollection, icon.ImageName + "-active") != null;
-			var hasActiveHover = ChromeProvider.GetImage(icon.ImageCollection, icon.ImageName + "-active-hover") != null;
-			var hasHover = ChromeProvider.GetImage(icon.ImageCollection, icon.ImageName + "-hover") != null;
 
-			icon.GetImageName = () => hasActive && button.IsHighlighted() ?
-						(hasActiveHover && Ui.MouseOverWidget == button ? icon.ImageName + "-active-hover" : icon.ImageName + "-active") :
-					hasDisabled && button.IsDisabled() ? icon.ImageName + "-disabled" :
-					hasHover && Ui.MouseOverWidget == button ? icon.ImageName + "-hover" : icon.ImageName;
+			icon.GetImageName = () =>
+			{
+				var baseName = button.IsHighlighted() ? icon.ImageName + "-active" : icon.ImageName;
+				var hasBaseImage = ChromeProvider.GetImage(icon.ImageCollection, baseName) != null;
+				var stateName = WidgetUtils.GetStatefulImageName(baseName, button.IsDisabled(), button.Depressed, Ui.MouseOverWidget == button);
+				var hasStateImage = ChromeProvider.GetImage(icon.ImageCollection, stateName) != null;
+
+				return hasStateImage ? stateName : hasBaseImage ? baseName : icon.ImageName;
+			};
 
 			button.IsDisabled = () => { UpdateStateIfNecessary(); return !actorStances.Any(); };
 			button.IsHighlighted = () => actorStances.Any(
