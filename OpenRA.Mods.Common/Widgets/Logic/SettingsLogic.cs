@@ -1053,6 +1053,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				feedbackCheckbox.OnClick = () => toggleFilterFlag(ChatPoolFilters.Feedback);
 			}
 
+			var spectatorChatCheckbox = filtersPanel.GetOrNull<CheckboxWidget>("SPECTATORS");
+			if (spectatorChatCheckbox != null)
+			{
+				spectatorChatCheckbox.IsChecked = () => gs.ChatPoolFilters.HasFlag(ChatPoolFilters.Spectators);
+				spectatorChatCheckbox.OnClick = () => toggleFilterFlag(ChatPoolFilters.Spectators);
+			}
+
 			var chatCheckbox = filtersPanel.GetOrNull<CheckboxWidget>("CHAT");
 			if (chatCheckbox != null)
 			{

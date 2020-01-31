@@ -878,6 +878,12 @@ namespace OpenRA
 			OrderManager.AddChatLine(new ChatLine(name, nameColor, text, textColor, pool));
 		}
 
+		public static void AddSpectatorChatLine(string name, Color nameColor, string text)
+		{
+			if (Settings.Game.ChatPoolFilters.HasFlag(ChatPoolFilters.Spectators))
+				OrderManager.AddChatLine(new ChatLine(name, nameColor, text, chatMessageColor, ChatPool.Spectators));
+		}
+
 		public static void AddTranscribedChatLine(string text)
 		{
 			if (Settings.Game.ChatPoolFilters.HasFlag(ChatPoolFilters.Transcriptions))

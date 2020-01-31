@@ -96,7 +96,7 @@ namespace OpenRA.Network
 						{
 							// Validate before adding the line
 							if (client.IsObserver || (player != null && player.WinState != WinState.Undefined))
-								Game.AddChatLine("[Spectators] " + client.Name, client.Color, message);
+								Game.AddSpectatorChatLine("[Spectators] " + client.Name, client.Color, message);
 
 							break;
 						}

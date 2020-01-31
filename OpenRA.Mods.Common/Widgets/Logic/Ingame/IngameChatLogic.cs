@@ -72,7 +72,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			chatChrome.Visible = true;
 
 			var chatMode = chatChrome.Get<ButtonWidget>("CHAT_MODE");
-			chatMode.GetText = () => teamChat && !disableTeamChat ? "Team" : "All";
+			chatMode.GetText = () => teamChat && !disableTeamChat && !isSpectatorChatDisabled() ? "Team" : "All";
 			chatMode.OnClick = () => teamChat ^= true;
 
 			// Enable teamchat if we are a player and die,
@@ -87,7 +87,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					// The game is over for us, join spectator team chat
 					if (world.LocalPlayer.WinState != WinState.Undefined)
 					{
-						disableTeamChat = false;
+						disableTeamChat = !isSpectatorChatDisabled();
 						return disableTeamChat;
 					}
 
@@ -99,7 +99,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				};
 			}
 			else
-				chatMode.IsDisabled = () => disableTeamChat;
+				chatMode.IsDisabled = () => disableTeamChat || isSpectatorChatDisabled();
 
 			// Disable team chat after the game ended
 			world.GameOver += () => disableTeamChat = true;
@@ -219,6 +219,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			MiniYaml yaml;
 			if (logicArgs.TryGetValue("ChatLineSound", out yaml))
 				chatLineSound = yaml.Value;
+		}
+
+		bool isSpectatorChatDisabled()
+		{
+			return !Game.Settings.Game.ChatPoolFilters.HasFlag(ChatPoolFilters.Spectators);
 		}
 
 		public void OpenChat()

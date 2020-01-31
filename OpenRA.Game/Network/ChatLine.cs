@@ -14,7 +14,7 @@ using OpenRA.Primitives;
 
 namespace OpenRA.Network
 {
-	public enum ChatPool { System, Chat, Mission, Feedback, Transcriptions }
+	public enum ChatPool { System, Chat, Spectators, Mission, Feedback, Transcriptions }
 	public class ChatLine : IEquatable<ChatLine>
 	{
 		public readonly Color NameColor;

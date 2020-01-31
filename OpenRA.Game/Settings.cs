@@ -38,7 +38,8 @@ namespace OpenRA
 	{
 		None = 0,
 		Feedback = 1,
-		Transcriptions = 2
+		Transcriptions = 2,
+		Spectators = 4
 	}
 
 	public enum WorldViewport { Native, Close, Medium, Far }
@@ -257,7 +258,7 @@ namespace OpenRA
 		public int IntroductionPromptVersion = 0;
 
 		public MPGameFilters MPGameFilters = MPGameFilters.Waiting | MPGameFilters.Empty | MPGameFilters.Protected | MPGameFilters.Started;
-		public ChatPoolFilters ChatPoolFilters = ChatPoolFilters.Feedback;
+		public ChatPoolFilters ChatPoolFilters = ChatPoolFilters.Spectators | ChatPoolFilters.Feedback;
 	}
 
 	public class Settings
