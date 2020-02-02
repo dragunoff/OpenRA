@@ -681,12 +681,18 @@ scrollheader-selected:
 mainmenu-border:
 	Inherits: ^Dialog
 
-dropdown:
+dropdown-arrow:
+	Inherits: ^Glyphs
+	Regions:
+		arrow: 68, 17, 16, 16
+		arrow-disabled: 85, 17, 16, 16
+
+dropdown-separator:
 	Inherits: ^Dialog
 	Regions:
-		separator: 513, 1, 1, 19
-		separator-hover: 513, 1, 1, 19
-		separator-disabled: 513, 1, 1, 19
+		separator: 513, 2, 1, 19
+		separator-hover: 513, 130, 1, 19
+		separator-disabled: 513, 258, 1, 19
 
 logos:
 	Inherits: ^LoadScreen

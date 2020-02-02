@@ -20,7 +20,9 @@ namespace OpenRA.Mods.Common.Widgets
 {
 	public class DropDownButtonWidget : ButtonWidget
 	{
-		public readonly string SeparatorCollection = "dropdown";
+		public readonly string ArrowCollection = "dropdown-arrow";
+		public readonly string ArrowImage = "arrow";
+		public readonly string SeparatorCollection = "dropdown-separator";
 		public readonly string SeparatorImage = "separator";
 		public readonly TextAlign PanelAlign = TextAlign.Left;
 
@@ -46,21 +48,22 @@ namespace OpenRA.Mods.Common.Widgets
 			base.Draw();
 			var stateOffset = Depressed ? new int2(VisualHeight, VisualHeight) : new int2(0, 0);
 
-			var isDisabled = IsDisabled();
+			var rb = RenderBounds;
 			var isHover = Ui.MouseOverWidget == this || Children.Any(c => c == Ui.MouseOverWidget);
 
-			var image = ChromeProvider.GetImage("scrollbar", isDisabled ? "down_pressed" : "down_arrow");
-			var rb = RenderBounds;
+			var stateSuffix = IsDisabled() ? "-disabled" :
+						Depressed ? "-pressed" :
+						isHover ? "-hover" :
+						"";
 
-			WidgetUtils.DrawRGBA(image, stateOffset + new float2(rb.Right - rb.Height + 5, rb.Top + (rb.Height - image.Bounds.Height) / 2));
+			var arrowImageName = ArrowImage + stateSuffix;
+			var arrowImage = ChromeProvider.GetImage(ArrowCollection, arrowImageName) ?? ChromeProvider.GetImage(ArrowCollection, ArrowImage);
+			WidgetUtils.DrawRGBA(arrowImage, stateOffset + new float2(rb.Right - rb.Height + 5, rb.Top + (rb.Height - arrowImage.Bounds.Height) / 2));
 
-			var separatorImageName = SeparatorImage;
-			if (isDisabled)
-				separatorImageName += "-disabled";
-			else if (isHover)
-				separatorImageName += "-hover";
-
+			var separatorImageName = SeparatorImage + stateSuffix;
 			var separator = ChromeProvider.GetImage(SeparatorCollection, separatorImageName) ?? ChromeProvider.GetImage(SeparatorCollection, SeparatorImage);
+
+			// TODO: Kill magic numbers
 			if (separator != null)
 				WidgetUtils.DrawRGBA(separator, stateOffset + new float2(-3, 0) + new float2(rb.Right - rb.Height + 4, rb.Top + (rb.Height - separator.Bounds.Height) / 2));
 		}

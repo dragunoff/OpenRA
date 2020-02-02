@@ -364,12 +364,19 @@ strategic:
 		enemy_owned: 837, 223, 22, 22
 		player_owned: 883, 223, 22, 22
 
-dropdown:
+dropdown-arrow:
 	Inherits: ^Chrome
 	Regions:
-		separator: 65, 1, 1, 19
+		arrow: 836, 17, 16, 16
+		arrow-disabled: 853, 17, 16, 16
+
+dropdown-separator:
+	Inherits: ^Chrome
+	Regions:
+		separator: 129, 2, 1, 19
 		separator-hover: 161, 2, 1, 19
-		separator-disabled: 65, 1, 1, 19
+		separator-pressed: 129, 34, 1, 19
+		separator-disabled: 161, 34, 1, 19
 
 #
 # Common chrome
