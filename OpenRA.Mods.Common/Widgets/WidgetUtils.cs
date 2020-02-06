@@ -23,6 +23,16 @@ namespace OpenRA.Mods.Common.Widgets
 			return ChromeProvider.GetImage("chrome-" + world.LocalPlayer.Faction.InternalName, name);
 		}
 
+		public static string GetStatefulImageName(string baseName, bool isDisabled = false, bool isPressed = false, bool isHover = false, bool isHighlighted = false)
+		{
+			var suffix = isDisabled ? "-disabled" :
+				isPressed ? "-pressed" :
+				isHover ? "-hover" :
+				"";
+
+			return baseName + suffix;
+		}
+
 		public static void DrawRGBA(Sprite s, float2 pos)
 		{
 			Game.Renderer.RgbaSpriteRenderer.DrawSprite(s, pos);

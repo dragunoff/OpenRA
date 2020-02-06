@@ -20,10 +20,8 @@ namespace OpenRA.Mods.Common.Widgets
 {
 	public class DropDownButtonWidget : ButtonWidget
 	{
-		public readonly string ArrowCollection = "dropdown-arrow";
-		public readonly string ArrowImage = "arrow";
-		public readonly string SeparatorCollection = "dropdown-separator";
-		public readonly string SeparatorImage = "separator";
+		public readonly string Arrows = "arrows";
+		public readonly string Separators = "separators";
 		public readonly TextAlign PanelAlign = TextAlign.Left;
 
 		Widget panel;
@@ -49,23 +47,18 @@ namespace OpenRA.Mods.Common.Widgets
 			var stateOffset = Depressed ? new int2(VisualHeight, VisualHeight) : new int2(0, 0);
 
 			var rb = RenderBounds;
+			var isDisabled = IsDisabled();
 			var isHover = Ui.MouseOverWidget == this || Children.Any(c => c == Ui.MouseOverWidget);
 
-			var stateSuffix = IsDisabled() ? "-disabled" :
-						Depressed ? "-pressed" :
-						isHover ? "-hover" :
-						"";
-
-			var arrowImageName = ArrowImage + stateSuffix;
-			var arrowImage = ChromeProvider.GetImage(ArrowCollection, arrowImageName) ?? ChromeProvider.GetImage(ArrowCollection, ArrowImage);
+			var arrowImageName = WidgetUtils.GetStatefulImageName("down", isDisabled, Depressed, isHover);
+			var arrowImage = ChromeProvider.GetImage(Arrows, arrowImageName) ?? ChromeProvider.GetImage(Arrows, "down");
 			WidgetUtils.DrawRGBA(arrowImage, stateOffset + new float2(rb.Right - rb.Height + 5, rb.Top + (rb.Height - arrowImage.Bounds.Height) / 2));
 
-			var separatorImageName = SeparatorImage + stateSuffix;
-			var separator = ChromeProvider.GetImage(SeparatorCollection, separatorImageName) ?? ChromeProvider.GetImage(SeparatorCollection, SeparatorImage);
+			var separatorImageName = WidgetUtils.GetStatefulImageName("vertical", isDisabled, Depressed, isHover);
+			var separatorImage = ChromeProvider.GetImage(Separators, separatorImageName) ?? ChromeProvider.GetImage(Arrows, "vertical");
 
-			// TODO: Kill magic numbers
-			if (separator != null)
-				WidgetUtils.DrawRGBA(separator, stateOffset + new float2(-3, 0) + new float2(rb.Right - rb.Height + 4, rb.Top + (rb.Height - separator.Bounds.Height) / 2));
+			if (separatorImage != null)
+				WidgetUtils.DrawRGBA(separatorImage, stateOffset + new float2(-3, 0) + new float2(rb.Right - rb.Height + 4, rb.Top + (rb.Height - separatorImage.Bounds.Height) / 2));
 		}
 
 		public override Widget Clone() { return new DropDownButtonWidget(this); }

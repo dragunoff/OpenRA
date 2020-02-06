@@ -83,6 +83,7 @@ namespace OpenRA.Mods.Common.Widgets
 
 		public string Button = "button";
 		public string Background = "panel-black";
+		public string Arrows = "arrows";
 
 		int contentWidth = 0;
 		float listOffset = 0;
@@ -182,9 +183,14 @@ namespace OpenRA.Mods.Common.Widgets
 			ButtonWidget.DrawBackground(Button, leftButtonRect, leftDisabled, leftPressed, leftHover, false);
 			ButtonWidget.DrawBackground(Button, rightButtonRect, rightDisabled, rightPressed, rightHover, false);
 
-			WidgetUtils.DrawRGBA(ChromeProvider.GetImage("scrollbar", leftPressed || leftDisabled ? "left_pressed" : "left_arrow"),
+			var leftArrowImageName = WidgetUtils.GetStatefulImageName("left", leftDisabled, leftPressed, leftHover);
+			var leftArrowImage = ChromeProvider.GetImage(Arrows, leftArrowImageName) ?? ChromeProvider.GetImage(Arrows, "left");
+			WidgetUtils.DrawRGBA(leftArrowImage,
 				new float2(leftButtonRect.Left + 2, leftButtonRect.Top + 2));
-			WidgetUtils.DrawRGBA(ChromeProvider.GetImage("scrollbar", rightPressed || rightDisabled ? "right_pressed" : "right_arrow"),
+
+			var rightArrowImageName = WidgetUtils.GetStatefulImageName("right", rightDisabled, rightPressed, rightHover);
+			var rightArrowImage = ChromeProvider.GetImage(Arrows, rightArrowImageName) ?? ChromeProvider.GetImage(Arrows, "right");
+			WidgetUtils.DrawRGBA(rightArrowImage,
 				new float2(rightButtonRect.Left + 2, rightButtonRect.Top + 2));
 
 			// Draw tab buttons
