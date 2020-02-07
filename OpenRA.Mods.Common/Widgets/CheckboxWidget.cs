@@ -21,7 +21,6 @@ namespace OpenRA.Mods.Common.Widgets
 		public string CheckType = "checked";
 		public Func<string> GetCheckType;
 		public Func<bool> IsChecked = () => false;
-		public int CheckOffset = 2;
 		public bool HasPressedState = ChromeMetrics.Get<bool>("CheckboxPressedState");
 
 		[ObjectCreator.UseCtor]
@@ -37,7 +36,6 @@ namespace OpenRA.Mods.Common.Widgets
 			CheckType = other.CheckType;
 			GetCheckType = other.GetCheckType;
 			IsChecked = other.IsChecked;
-			CheckOffset = other.CheckOffset;
 			HasPressedState = other.HasPressedState;
 		}
 
@@ -74,8 +72,9 @@ namespace OpenRA.Mods.Common.Widgets
 				if (HasPressedState && (Depressed || disabled))
 					checkType += "-disabled";
 
-				var offset = new float2(rect.Left + CheckOffset, rect.Top + CheckOffset);
-				WidgetUtils.DrawRGBA(ChromeProvider.GetImage("checkbox-bits", checkType), offset);
+				var checkImage = ChromeProvider.GetImage("checkbox-bits", checkType);
+				var offset = new float2(rect.Left + (rect.Width - checkImage.Bounds.Width) / 2, rect.Top + (rect.Height - checkImage.Bounds.Height) / 2);
+				WidgetUtils.DrawRGBA(checkImage, offset);
 			}
 		}
 
