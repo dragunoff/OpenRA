@@ -23,12 +23,12 @@ namespace OpenRA.Mods.Common.Widgets
 			return ChromeProvider.GetImage("chrome-" + world.LocalPlayer.Faction.InternalName, name);
 		}
 
-		public static string GetStatefulImageName(string baseName, bool isDisabled = false, bool isPressed = false, bool isHover = false, bool isFocused = false, bool isHighlighted = false)
+		public static string GetStatefulImageName(string baseName, bool disabled = false, bool pressed = false, bool hover = false, bool focused = false)
 		{
-			var suffix = isDisabled ? "-disabled" :
-				isFocused ? "-focused" :
-				isPressed ? "-pressed" :
-				isHover ? "-hover" :
+			var suffix = disabled ? "-disabled" :
+				focused ? "-focused" :
+				pressed ? "-pressed" :
+				hover ? "-hover" :
 				"";
 
 			return baseName + suffix;
