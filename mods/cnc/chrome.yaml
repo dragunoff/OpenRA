@@ -371,10 +371,10 @@ arrows:
 separators:
 	Inherits: ^Chrome
 	Regions:
-		separator: 129, 2, 1, 19
-		separator-hover: 161, 2, 1, 19
-		separator-pressed: 129, 34, 1, 19
-		separator-disabled: 161, 34, 1, 19
+		vertical: 129, 2, 1, 19
+		vertical-hover: 161, 2, 1, 19
+		vertical-pressed: 129, 34, 1, 19
+		vertical-disabled: 161, 34, 1, 19
 
 #
 # Common chrome
