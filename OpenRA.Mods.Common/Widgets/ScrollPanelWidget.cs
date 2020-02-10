@@ -31,9 +31,15 @@ namespace OpenRA.Mods.Common.Widgets
 
 	public enum ScrollBar
 	{
-		Left,
-		Right,
+		Visible,
+		Auto,
 		Hidden
+	}
+	
+	public enum ScrollBarPosition
+	{
+		Left,
+		Right
 	}
 
 	public class ScrollPanelWidget : Widget
@@ -52,7 +58,8 @@ namespace OpenRA.Mods.Common.Widgets
 		public ILayout Layout;
 		public int MinimumThumbSize = 10;
 		public ScrollPanelAlign Align = ScrollPanelAlign.Top;
-		public ScrollBar ScrollBar = ScrollBar.Right;
+		public ScrollBar ScrollBar = ScrollBar.Auto;
+		public ScrollBarPosition ScrollBarPosition = ScrollBarPosition.Right;
 		public bool CollapseHiddenChildren;
 
 		// Fraction of the remaining scroll-delta to move in 40ms
@@ -148,38 +155,35 @@ namespace OpenRA.Mods.Common.Widgets
 			var rb = RenderBounds;
 
 			var scrollbarHeight = rb.Height - 2 * ScrollbarWidth;
+			var hideScrollbar = ScrollBar == ScrollBar.Hidden || (ScrollBar == ScrollBar.Auto && rb.Height >= ContentHeight);
 
 			var thumbHeight = ContentHeight == 0 ? 0 : Math.Max(MinimumThumbSize, (int)(scrollbarHeight * Math.Min(rb.Height * 1f / ContentHeight, 1f)));
 			var thumbOrigin = rb.Y + ScrollbarWidth + (int)((scrollbarHeight - thumbHeight) * (-1f * currentListOffset / (ContentHeight - rb.Height)));
 			if (thumbHeight == scrollbarHeight)
 				thumbHeight = 0;
 
-			switch (ScrollBar)
+			if (!ShowScrollBar)
+				backgroundRect = new Rectangle(rb.X, rb.Y, rb.Width, rb.Height);
+			else if (ScrollBarPosition == ScrollBarPosition.Left)
 			{
-				case ScrollBar.Left:
-					backgroundRect = new Rectangle(rb.X + ScrollbarWidth, rb.Y, rb.Width + 1, rb.Height);
-					upButtonRect = new Rectangle(rb.X, rb.Y, ScrollbarWidth, ScrollbarWidth);
-					downButtonRect = new Rectangle(rb.X, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
-					scrollbarRect = new Rectangle(rb.X, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
-					thumbRect = new Rectangle(rb.X, thumbOrigin, ScrollbarWidth, thumbHeight);
-					break;
-				case ScrollBar.Right:
-					backgroundRect = new Rectangle(rb.X, rb.Y, rb.Width - ScrollbarWidth + 1, rb.Height);
-					upButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y, ScrollbarWidth, ScrollbarWidth);
-					downButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
-					scrollbarRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
-					thumbRect = new Rectangle(rb.Right - ScrollbarWidth, thumbOrigin, ScrollbarWidth, thumbHeight);
-					break;
-				case ScrollBar.Hidden:
-					backgroundRect = new Rectangle(rb.X, rb.Y, rb.Width + 1, rb.Height);
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
+				backgroundRect = new Rectangle(rb.X + ScrollbarWidth, rb.Y, rb.Width + 1, rb.Height);
+				upButtonRect = new Rectangle(rb.X, rb.Y, ScrollbarWidth, ScrollbarWidth);
+				downButtonRect = new Rectangle(rb.X, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
+				scrollbarRect = new Rectangle(rb.X, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
+				thumbRect = new Rectangle(rb.X, thumbOrigin, ScrollbarWidth, thumbHeight);
+			}
+			else
+			{
+				backgroundRect = new Rectangle(rb.X, rb.Y, rb.Width - ScrollbarWidth + 1, rb.Height);
+				upButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y, ScrollbarWidth, ScrollbarWidth);
+				downButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
+				scrollbarRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
+				thumbRect = new Rectangle(rb.Right - ScrollbarWidth, thumbOrigin, ScrollbarWidth, thumbHeight);
 			}
 
 			WidgetUtils.DrawPanel(Background, backgroundRect);
 
-			if (ScrollBar != ScrollBar.Hidden)
+			if (ShowScrollBar)
 			{
 				var upHover = Ui.MouseOverWidget == this && upButtonRect.Contains(Viewport.LastMousePos);
 				upDisabled = thumbHeight == 0 || currentListOffset >= 0;
@@ -212,18 +216,28 @@ namespace OpenRA.Mods.Common.Widgets
 			drawBounds.X -= co.X;
 			drawBounds.Y -= co.Y;
 
+			Layout.AdjustChildren();
+
 			foreach (var child in Children)
 				if (child.Bounds.IntersectsWith(drawBounds))
 					child.DrawOuter();
 
 			Game.Renderer.DisableScissor();
 		}
+		
+		public bool ShowScrollBar
+		{
+			get
+			{
+				return ScrollBar == ScrollBar.Visible || (ScrollBar == ScrollBar.Auto && Bounds.Height < ContentHeight);
+			}
+		}
 
 		public override int2 ChildOrigin
 		{
 			get
 			{
-				return RenderOrigin + new int2(ScrollBar == ScrollBar.Left ? ScrollbarWidth : 0, (int)currentListOffset);
+				return RenderOrigin + new int2(ShowScrollBar && ScrollBarPosition == ScrollBarPosition.Left ? ScrollbarWidth : 0, (int)currentListOffset);
 			}
 		}
 

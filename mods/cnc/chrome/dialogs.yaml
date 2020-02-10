@@ -3,7 +3,7 @@ ScrollPanel@LABEL_DROPDOWN_TEMPLATE:
 	Background: panel-black
 	Children:
 		ScrollItem@HEADER:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 13
 			X: 2
 			Y: 0
@@ -15,7 +15,7 @@ ScrollPanel@LABEL_DROPDOWN_TEMPLATE:
 					Height: 13
 					Align: Center
 		ScrollItem@TEMPLATE:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 25
 			X: 2
 			Y: 0
@@ -31,7 +31,7 @@ ScrollPanel@PLAYERACTION_DROPDOWN_TEMPLATE:
 	Background: panel-black
 	Children:
 		ScrollItem@TEMPLATE:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 25
 			X: 2
 			Y: 0
@@ -49,7 +49,7 @@ ScrollPanel@FACTION_DROPDOWN_TEMPLATE:
 	Children:
 		ScrollItem@HEADER:
 			BaseName: scrollheader
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 13
 			X: 2
 			Y: 0
@@ -61,7 +61,7 @@ ScrollPanel@FACTION_DROPDOWN_TEMPLATE:
 					Height: 13
 					Align: Center
 		ScrollItem@TEMPLATE:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 25
 			X: 2
 			Y: 0
@@ -83,7 +83,7 @@ ScrollPanel@TEAM_DROPDOWN_TEMPLATE:
 	Background: panel-black
 	Children:
 		ScrollItem@TEMPLATE:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 25
 			X: 2
 			Y: 0
@@ -100,7 +100,7 @@ ScrollPanel@SPAWN_DROPDOWN_TEMPLATE:
 	Background: panel-black
 	Children:
 		ScrollItem@TEMPLATE:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 25
 			X: 2
 			Y: 0
@@ -117,7 +117,7 @@ ScrollPanel@SPECTATOR_DROPDOWN_TEMPLATE:
 	Background: panel-black
 	Children:
 		ScrollItem@HEADER:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 13
 			X: 2
 			Y: 0
@@ -129,7 +129,7 @@ ScrollPanel@SPECTATOR_DROPDOWN_TEMPLATE:
 					Height: 13
 					Align: Center
 		ScrollItem@TEMPLATE:
-			Width: PARENT_RIGHT - 27
+			Width: PARENT_RIGHT
 			Height: 25
 			X: 2
 			Y: 0

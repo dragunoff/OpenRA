@@ -27,6 +27,8 @@ namespace OpenRA.Mods.Common.Widgets
 			w.Bounds.Y = widget.ContentHeight - widget.TopBottomSpacing + widget.ItemSpacing;
 			if (!widget.CollapseHiddenChildren || w.IsVisible())
 				widget.ContentHeight += w.Bounds.Height + widget.ItemSpacing;
+
+			AdjustChildrenWidth();
 		}
 
 		public void AdjustChildren()
@@ -42,6 +44,19 @@ namespace OpenRA.Mods.Common.Widgets
 			// The loop above appended an extra widget.ItemSpacing after the last item.
 			// Replace it with proper bottom spacing.
 			widget.ContentHeight += widget.TopBottomSpacing - widget.ItemSpacing;
+
+			AdjustChildrenWidth();
+		}
+
+		void AdjustChildrenWidth()
+		{
+			foreach (var w in widget.Children)
+			{
+				if (widget.ShowScrollBar)
+					w.Bounds.Width = widget.Bounds.Width - widget.ScrollbarWidth - widget.BorderWidth * 4;
+				else
+					w.Bounds.Width = widget.Bounds.Width - widget.BorderWidth * 4;
+			}
 		}
 	}
 }

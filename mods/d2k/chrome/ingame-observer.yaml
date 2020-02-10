@@ -572,6 +572,7 @@ Container@OBSERVER_WIDGETS:
 					Background:
 					ScrollbarWidth: 25
 					ScrollBar: Hidden
+					ScrollBarPosition: Left
 					Children:
 						ScrollItem@TEAM_TEMPLATE:
 							X: 0

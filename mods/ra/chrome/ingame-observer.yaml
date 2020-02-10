@@ -621,6 +621,7 @@ Container@OBSERVER_WIDGETS:
 					Button: observer-scrollpanel-button
 					ScrollbarWidth: 24
 					ScrollBar: Hidden
+					ScrollBarPosition: Left
 					Children:
 						ScrollItem@TEAM_TEMPLATE:
 							X: 0

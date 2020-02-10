@@ -83,7 +83,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			if (ShowScrollBar)
 			{
-				playerStatsPanel.ScrollBar = ScrollBar.Left;
+				playerStatsPanel.ScrollBar = ScrollBar.Visible;
 
 				AdjustHeader(basicStatsHeaders);
 				AdjustHeader(economyStatsHeaders);
