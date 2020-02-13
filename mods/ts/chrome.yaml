@@ -634,11 +634,15 @@ slider-thumb-disabled:
 checkbox:
 	Inherits: button-pressed
 
-checkbox-bits:
+checkmark-tick:
 	Inherits: ^Glyphs
 	Regions:
 		checked: 187, 0, 16, 16
 		checked-disabled: 204, 0, 16, 16
+
+checkmark-cross:
+	Inherits: ^Glyphs
+	Regions:
 		crossed: 221, 0, 16, 16
 		crossed-disabled: 238, 0, 16, 16
 
@@ -650,6 +654,22 @@ checkbox-disabled:
 	Inherits: ^Dialog
 	PanelRegion: 641, 257, 2, 2, 122, 122, 2, 2
 
+checkbox-pressed:
+	Inherits: checkbox-hover
+
+checkbox-checked:
+	Inherits: checkbox
+
+checkbox-checked-hover:
+	Inherits: checkbox-hover
+
+checkbox-checked-disabled:
+	Inherits: checkbox-disabled
+
+checkbox-checked-pressed:
+	Inherits: checkbox-pressed
+
+# TODO: Get rid of this
 checkbox-highlighted:
 	Inherits: ^Dialog
 	PanelRegion: 897, 1, 2, 2, 122, 122, 2, 2

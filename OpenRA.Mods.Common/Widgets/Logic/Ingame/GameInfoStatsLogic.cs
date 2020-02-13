@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 				checkbox.IsChecked = () => player.WinState != WinState.Undefined;
 				checkbox.GetCheckType = () => player.WinState == WinState.Won ?
-					"checked" : "crossed";
+					"tick" : "cross";
 
 				if (player.HasObjectives)
 				{

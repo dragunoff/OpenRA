@@ -198,8 +198,17 @@ checkbox-disabled:
 checkbox-pressed:
 	Inherits: button-pressed
 
-checkbox-highlighted:
-	Inherits: button-highlighted-pressed
+checkbox-checked:
+	Inherits: checkbox
+
+checkbox-checked-hover:
+	Inherits: checkbox-hover
+
+checkbox-checked-disabled:
+	Inherits: checkbox-disabled
+
+checkbox-checked-pressed:
+	Inherits: checkbox-pressed
 
 #
 # Panels
@@ -329,13 +338,19 @@ reload-icon:
 		disabled-10: 955, 34, 16, 16
 		disabled-11: 972, 34, 16, 16
 
-checkbox-bits:
+checkmark-tick:
 	Inherits: ^Chrome
 	Regions:
+		unchecked-pressed: 989, 17, 16, 16
 		checked: 972, 17, 16, 16
 		checked-disabled: 989, 17, 16, 16
-		crossed: 972, 0, 16, 16
-		crossed-disabled: 989, 0, 16, 16
+
+checkmark-cross:
+	Inherits: ^Chrome
+	Regions:
+		unchecked-pressed: 989, 0, 16, 16
+		checked: 972, 0, 16, 16
+		checked-disabled: 989, 0, 16, 16
 
 flags:
 	Inherits: ^Chrome

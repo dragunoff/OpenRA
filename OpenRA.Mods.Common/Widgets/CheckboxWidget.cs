@@ -18,11 +18,10 @@ namespace OpenRA.Mods.Common.Widgets
 {
 	public class CheckboxWidget : ButtonWidget
 	{
-		public string CheckType = "checked";
+		public string CheckType = "tick";
 		public Func<string> GetCheckType;
 		public Func<bool> IsChecked = () => false;
 		public int CheckOffset = 2;
-		public bool HasPressedState = ChromeMetrics.Get<bool>("CheckboxPressedState");
 
 		[ObjectCreator.UseCtor]
 		public CheckboxWidget(ModData modData)
@@ -38,12 +37,13 @@ namespace OpenRA.Mods.Common.Widgets
 			GetCheckType = other.GetCheckType;
 			IsChecked = other.IsChecked;
 			CheckOffset = other.CheckOffset;
-			HasPressedState = other.HasPressedState;
 		}
 
 		public override void Draw()
 		{
+			var @checked = IsChecked();
 			var disabled = IsDisabled();
+			var hover = Ui.MouseOverWidget == this;
 			var font = Game.Renderer.Fonts[Font];
 			var color = GetColor();
 			var colordisabled = GetColorDisabled();
@@ -53,8 +53,8 @@ namespace OpenRA.Mods.Common.Widgets
 			var text = GetText();
 			var textSize = font.Measure(text);
 			var check = new Rectangle(rect.Location, new Size(Bounds.Height, Bounds.Height));
-			var baseName = IsHighlighted() ? "checkbox-highlighted" : "checkbox";
-			var state = WidgetUtils.GetStatefulImageName(baseName, disabled, Depressed && HasPressedState, Ui.MouseOverWidget == this);
+			var baseName = @checked ? "checkbox-checked" : "checkbox";
+			var state = WidgetUtils.GetStatefulImageName(baseName, disabled, Depressed, hover);
 
 			WidgetUtils.DrawPanel(state, check);
 
@@ -68,15 +68,14 @@ namespace OpenRA.Mods.Common.Widgets
 				font.DrawText(text, position,
 					disabled ? colordisabled : color);
 
-			if (IsChecked() || (Depressed && HasPressedState && !disabled))
-			{
-				var checkType = GetCheckType();
-				if (HasPressedState && (Depressed || disabled))
-					checkType += "-disabled";
+			var offset = new float2(rect.Left + CheckOffset, rect.Top + CheckOffset);
+			var checkmarkCollectionName = "checkmark-" + GetCheckType();
+			var checkmarkBaseName = @checked ? "checked" : "unchecked";
+			var checkmarkStateName = WidgetUtils.GetStatefulImageName(checkmarkBaseName, disabled, Depressed, hover);
+			var checkmarkImage = ChromeProvider.GetImage(checkmarkCollectionName, checkmarkStateName) ?? ChromeProvider.GetImage(checkmarkCollectionName, checkmarkBaseName);
 
-				var offset = new float2(rect.Left + CheckOffset, rect.Top + CheckOffset);
-				WidgetUtils.DrawRGBA(ChromeProvider.GetImage("checkbox-bits", checkType), offset);
-			}
+			if (@checked || checkmarkImage != null)
+				WidgetUtils.DrawRGBA(checkmarkImage, offset);
 		}
 
 		public override Widget Clone() { return new CheckboxWidget(this); }
