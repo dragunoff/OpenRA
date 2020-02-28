@@ -412,7 +412,7 @@ namespace OpenRA
 				}
 
 				if (!string.IsNullOrEmpty(pool.Transcription))
-					Game.AddTranscribedChatLine(pool.Transcription);
+					ChatExt.AddTranscribedChatLine(pool.Transcription);
 			}
 
 			return true;

@@ -195,7 +195,7 @@ namespace OpenRA.Mods.Common.Scripting
 				return;
 
 			var c = color.HasValue ? color.Value : Color.White;
-			Game.AddMissionChatLine(prefix, c, text);
+			ChatExt.AddMissionChatLine(prefix, c, text);
 		}
 
 		[Desc("Display a system message to the player. If 'prefix' is nil the default system prefix is used.")]
@@ -205,9 +205,9 @@ namespace OpenRA.Mods.Common.Scripting
 				return;
 
 			if (string.IsNullOrEmpty(prefix))
-				Game.AddSystemLine(text);
+				ChatExt.AddSystemLine(text);
 
-			Game.AddSystemLine(prefix, text);
+			ChatExt.AddSystemLine(prefix, text);
 		}
 
 		[Desc("Displays a debug message to the player, if \"Show Map Debug Messages\" is checked in the settings.")]

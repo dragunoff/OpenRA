@@ -40,7 +40,7 @@ namespace OpenRA.Network
 			{
 				// Server message
 				case "Message":
-					Game.AddSystemLine(order.TargetString);
+					ChatExt.AddSystemLine(order.TargetString);
 					break;
 
 				// Reports that the target player disconnected
@@ -73,7 +73,7 @@ namespace OpenRA.Network
 							if (orderManager.LocalClient != null && client != orderManager.LocalClient && client.Team > 0 && client.Team == orderManager.LocalClient.Team)
 								suffix += " (Ally)";
 
-							Game.AddChatLine(client.Name + suffix, client.Color, message);
+							ChatExt.AddChatLine(client.Name + suffix, client.Color, message);
 							break;
 						}
 
@@ -82,7 +82,7 @@ namespace OpenRA.Network
 						{
 							var prefix = order.ExtraData == uint.MaxValue ? "[Spectators] " : "[Team] ";
 							if (orderManager.LocalClient != null && client.Team == orderManager.LocalClient.Team)
-								Game.AddChatLine(prefix + client.Name, client.Color, message);
+								ChatExt.AddChatLine(prefix + client.Name, client.Color, message);
 
 							break;
 						}
@@ -96,7 +96,7 @@ namespace OpenRA.Network
 						{
 							// Validate before adding the line
 							if (client.IsObserver || (player != null && player.WinState != WinState.Undefined))
-								Game.AddChatLine("[Spectators] " + client.Name, client.Color, message);
+								ChatExt.AddChatLine("[Spectators] " + client.Name, client.Color, message);
 
 							break;
 						}
@@ -106,7 +106,7 @@ namespace OpenRA.Network
 							&& world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined;
 
 						if (valid && (isSameTeam || world.IsReplay))
-							Game.AddChatLine("[Team" + (world.IsReplay ? " " + order.ExtraData : "") + "] " + client.Name, client.Color, message);
+							ChatExt.AddChatLine("[Team" + (world.IsReplay ? " " + order.ExtraData : "") + "] " + client.Name, client.Color, message);
 
 						break;
 					}
@@ -136,7 +136,7 @@ namespace OpenRA.Network
 									FieldLoader.GetValue<int>("SaveSyncFrame", saveSyncFrame.Value.Value);
 						}
 						else
-							Game.AddSystemLine("The game has started.");
+							ChatExt.AddSystemLine("The game has started.");
 
 						Game.StartGame(orderManager.LobbyInfo.GlobalSettings.Map, WorldType.Regular);
 						break;
@@ -155,7 +155,7 @@ namespace OpenRA.Network
 
 				case "GameSaved":
 					if (!orderManager.World.IsReplay)
-						Game.AddSystemLine("Game saved");
+						ChatExt.AddSystemLine("Game saved");
 
 					foreach (var nsr in orderManager.World.WorldActor.TraitsImplementing<INotifyGameSaved>())
 						nsr.GameSaved(orderManager.World);
@@ -175,7 +175,7 @@ namespace OpenRA.Network
 							if (orderManager.World.Paused != pause && world != null && world.LobbyInfo.NonBotClients.Count() > 1)
 							{
 								var pausetext = "The game is {0} by {1}".F(pause ? "paused" : "un-paused", client.Name);
-								Game.AddSystemLine(pausetext);
+								ChatExt.AddSystemLine(pausetext);
 							}
 
 							orderManager.World.Paused = pause;

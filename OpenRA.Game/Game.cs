@@ -858,46 +858,24 @@ namespace OpenRA
 			state = RunStatus.Success;
 		}
 
-		public static void AddSystemLine(string text)
+		public static void AddSystemLine(string name, string text, ChatPool pool)
 		{
-			AddSystemLine("Battlefield Control", text);
+			AddChatLine(name, systemMessageColor, text, systemMessageColor, pool);
 		}
 
-		public static void AddSystemLine(string prefix, string text)
+		public static void AddChatLine(string name, Color nameColor, string text, ChatPool pool)
 		{
-			AddChatLine(prefix, systemMessageColor, text, systemMessageColor, ChatPool.System);
+			AddChatLine(name, nameColor, text, chatMessageColor, pool);
 		}
 
-		public static void AddChatLine(string name, Color nameColor, string text)
-		{
-			AddChatLine(name, nameColor, text, chatMessageColor, ChatPool.Chat);
-		}
-
-		public static void AddChatLine(string name, Color nameColor, string text, Color textColor,  ChatPool pool)
+		public static void AddChatLine(string name, Color nameColor, string text, Color textColor, ChatPool pool)
 		{
 			OrderManager.AddChatLine(new ChatLine(name, nameColor, text, textColor, pool));
 		}
 
-		public static void AddTranscribedChatLine(string text)
-		{
-			if (Settings.Game.ChatPoolFilters.HasFlag(ChatPoolFilters.Transcriptions))
-				AddChatLine("Battlefield Control", systemMessageColor, text, systemMessageColor, ChatPool.Transcriptions);
-		}
-
-		public static void AddFeedbackChatLine(string text)
-		{
-			if (Settings.Game.ChatPoolFilters.HasFlag(ChatPoolFilters.Feedback))
-				AddChatLine("Battlefield Control", systemMessageColor, text, systemMessageColor, ChatPool.Feedback);
-		}
-
-		public static void AddMissionChatLine(string name, Color nameColor, string text)
-		{
-			AddChatLine(name, nameColor, text, chatMessageColor, ChatPool.Mission);
-		}
-
 		public static void Debug(string s, params object[] args)
 		{
-			AddSystemLine("Debug", string.Format(s, args));
+			AddSystemLine("Debug", string.Format(s, args), ChatPool.System);
 		}
 
 		public static void Disconnect()
