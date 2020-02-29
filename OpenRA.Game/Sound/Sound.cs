@@ -410,6 +410,9 @@ namespace OpenRA
 
 					currentSounds[id] = sound;
 				}
+
+				if (!string.IsNullOrEmpty(pool.Transcription))
+					Game.AddTranscribedChatLine(pool.Transcription);
 			}
 
 			return true;
