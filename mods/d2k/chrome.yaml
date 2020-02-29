@@ -410,6 +410,12 @@ arrows:
 		down: 119, 0, 16, 16
 		up: 102, 0, 16, 16
 
+arrows-options:
+	Inherits: ^Glyphs
+	Regions:
+		down: 221, 17, 16, 16
+		down-disabled: 238, 17, 16, 16
+
 separators:
 	Inherits: ^Dialog
 	Regions:

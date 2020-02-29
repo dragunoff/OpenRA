@@ -685,6 +685,12 @@ arrows:
 		left-pressed: 187, 17, 16, 16
 		left-disabled: 187, 17, 16, 16
 
+arrows-options:
+	Inherits: ^Glyphs
+	Regions:
+		down: 221, 17, 16, 16
+		down-disabled: 238, 17, 16, 16
+
 separators:
 	Inherits: ^Dialog
 	Regions:
