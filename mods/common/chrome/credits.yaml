@@ -1,51 +1,62 @@
-Background@CREDITS_PANEL:
-	Logic: CreditsLogic
-	X: (WINDOW_RIGHT - WIDTH) / 2
-	Y: (WINDOW_BOTTOM - 400) / 2
-	Width: 410
-	Height: 450
+Container@CREDITS_WINDOW:
+	PositionType: Absolute
+	Width: 100%
+	Height: 100%
+	JustifyContent: Center
+	AlignItems: Center
 	Children:
-		Label@CREDITS_TITLE:
-			Width: PARENT_RIGHT
-			Y: 21
-			Height: 25
-			Font: Bold
-			Align: Center
-			Text: Credits
-		Container@TAB_CONTAINER:
-			Visible: False
-			X: 15
-			Y: 50
-			Width: PARENT_RIGHT - 30
-			Height: 30
+		Background@CREDITS_PANEL:
+			Logic: CreditsLogic
+			PositionType: Relative
+			Width: 410
+			Height: 450
+			Top: 25
+			PaddingHorizontal: 15
+			PaddingVertical: 20
+			FlexDirection: Column
 			Children:
-				Button@MOD_TAB:
-					Width: 140
-					Height: 31
+				Label@CREDITS_TITLE:
+					PositionType: Relative
+					Height: 25
+					MarginBottom: 4
 					Font: Bold
-				Button@ENGINE_TAB:
-					X: 140
-					Width: 140
-					Height: 31
-					Text: OpenRA
+					Align: Center
+					Text: Credits
+				Container@TAB_CONTAINER:
+					PositionType: Relative
+					FlexDirection: Row
+					Visible: False
+					Height: 30
+					Children:
+						Button@MOD_TAB:
+							PositionType: Relative
+							Width: 140
+							Height: 31
+							Font: Bold
+						Button@ENGINE_TAB:
+							PositionType: Relative
+							X: 140
+							Width: 140
+							Height: 31
+							Text: OpenRA
+							Font: Bold
+				ScrollPanel@CREDITS_DISPLAY:
+					PositionType: Relative
+					FlexGrow: 1
+					FlexShrink: 1
+					Padding: 8
+					FlexDirection: Column
+					Children:
+						Label@CREDITS_TEMPLATE:
+							PositionType: Relative
+							Height: 16
+							VAlign: Top
+				Button@BACK_BUTTON:
+					PositionType: Relative
+					Width: 160
+					Height: 25
+					MarginTop: 10
+					AlignSelf: FlexEnd
+					Text: Close
 					Font: Bold
-		ScrollPanel@CREDITS_DISPLAY:
-			X: 15
-			Y: 50
-			Width: PARENT_RIGHT - 30
-			Height: 345
-			TopBottomSpacing: 8
-			Children:
-				Label@CREDITS_TEMPLATE:
-					X: 8
-					Width: PARENT_RIGHT - 25
-					Height: 16
-					VAlign: Top
-		Button@BACK_BUTTON:
-			X: PARENT_RIGHT - 180
-			Y: PARENT_BOTTOM - 45
-			Width: 160
-			Height: 25
-			Text: Close
-			Font: Bold
-			Key: escape
+					Key: escape

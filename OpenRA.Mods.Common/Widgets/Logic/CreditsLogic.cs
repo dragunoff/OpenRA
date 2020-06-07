@@ -60,12 +60,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				var modCredits = modData.Manifest.Get<ModCredits>();
 				modLines = ParseLines(modData.DefaultFileSystem.Open(modCredits.ModCreditsFile));
 				modTab.GetText = () => modCredits.ModTabTitle;
-
-				// Make space to show the tabs
 				tabContainer.VisibilityFunction = () => true;
-				scrollPanel.Node.Top = (int)scrollPanel.Node.LayoutY + (int)tabContainer.Node.LayoutHeight;
-				scrollPanel.Node.Height = (int)scrollPanel.Node.LayoutHeight - (int)tabContainer.Node.LayoutHeight;
-				scrollPanel.Node.CalculateLayout();
 			}
 
 			ShowCredits(hasModCredits);

@@ -1,52 +1,62 @@
-Container@CREDITS_PANEL:
-	Logic: CreditsLogic
-	X: (WINDOW_RIGHT - WIDTH) / 2
-	Y: (WINDOW_BOTTOM - 400) / 2
-	Width: 410
-	Height: 435
+Container@CREDITS_WINDOW:
+	PositionType: Absolute
+	Width: 100%
+	Height: 100%
+	JustifyContent: Center
+	AlignItems: Center
 	Children:
-		Label@CREDITS_TITLE:
-			Width: PARENT_RIGHT
-			Y: 0 - 22
-			Font: BigBold
-			Contrast: true
-			Align: Center
-			Text: Credits
-		Background@bg:
-			Width: PARENT_RIGHT
-			Height: 400
-			Background: panel-black
+		Container@CREDITS_PANEL:
+			Logic: CreditsLogic
+			PositionType: Relative
+			Width: 410
+			Height: 469
+			FlexDirection: Column
 			Children:
-				Container@TAB_CONTAINER:
-					Visible: False
-					X: 15
-					Y: 15
-					Width: PARENT_RIGHT - 30
-					Height: 34
+				Label@CREDITS_TITLE:
+					PositionType: Relative
+					Height: 24
+					MarginBottom: 10
+					Font: BigBold
+					Contrast: true
+					Align: Center
+					Text: Credits
+				Background@bg:
+					PositionType: Relative
+					FlexGrow: 1
+					FlexShrink: 1
+					Padding: 15
+					Background: panel-black
 					Children:
-						Button@MOD_TAB:
-							Width: 140
-							Height: 35
-						Button@ENGINE_TAB:
-							X: 150
-							Width: 140
-							Height: 35
-							Text: OpenRA
-				ScrollPanel@CREDITS_DISPLAY:
-					X: 15
-					Y: 15
-					Width: PARENT_RIGHT - 30
-					Height: PARENT_BOTTOM - 30
-					TopBottomSpacing: 8
-					Children:
-						Label@CREDITS_TEMPLATE:
-							X: 8
-							Width: PARENT_RIGHT - 25
-							Height: 16
-							VAlign: Top
-		Button@BACK_BUTTON:
-			Y: 399
-			Width: 140
-			Height: 35
-			Text: Back
-			Key: escape
+						Container@TAB_CONTAINER:
+							PositionType: Relative
+							FlexDirection: Row
+							Bottom: -1
+							Visible: False
+							Children:
+								Button@MOD_TAB:
+									PositionType: Relative
+									Width: 140
+									Height: 35
+								Button@ENGINE_TAB:
+									PositionType: Relative
+									Width: 140
+									Height: 35
+									Text: OpenRA
+						ScrollPanel@CREDITS_DISPLAY:
+							PositionType: Relative
+							FlexGrow: 1
+							FlexShrink: 1
+							Padding: 8
+							FlexDirection: Column
+							Children:
+								Label@CREDITS_TEMPLATE:
+									PositionType: Relative
+									Height: 16
+									VAlign: Top
+				Button@BACK_BUTTON:
+					PositionType: Relative
+					Top: -1
+					Width: 140
+					Height: 35
+					Text: Back
+					Key: escape

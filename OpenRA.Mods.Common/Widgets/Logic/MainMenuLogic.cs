@@ -146,7 +146,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			extrasMenu.Get<ButtonWidget>("CREDITS_BUTTON").OnClick = () =>
 			{
 				SwitchMenu(MenuType.None);
-				Ui.OpenWindow("CREDITS_PANEL", new WidgetArgs
+				Ui.OpenWindow("CREDITS_WINDOW", new WidgetArgs
 				{
 					{ "onExit", () => SwitchMenu(MenuType.Extras) },
 				});
