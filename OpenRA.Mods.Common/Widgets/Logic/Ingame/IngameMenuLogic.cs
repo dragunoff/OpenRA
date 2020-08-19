@@ -316,7 +316,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			button.OnClick = () =>
 			{
 				hideMenu = true;
-				Ui.OpenWindow("MUSIC_PANEL", new WidgetArgs()
+				Ui.OpenWindow("MUSIC_WINDOW", new WidgetArgs()
 				{
 					{ "onExit", () => hideMenu = false },
 					{ "world", world }

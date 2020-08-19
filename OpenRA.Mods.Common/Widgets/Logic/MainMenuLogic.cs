@@ -123,7 +123,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			extrasMenu.Get<ButtonWidget>("MUSIC_BUTTON").OnClick = () =>
 			{
 				SwitchMenu(MenuType.None);
-				Ui.OpenWindow("MUSIC_PANEL", new WidgetArgs
+				Ui.OpenWindow("MUSIC_WINDOW", new WidgetArgs
 				{
 					{ "onExit", () => SwitchMenu(MenuType.Extras) },
 					{ "world", world }
