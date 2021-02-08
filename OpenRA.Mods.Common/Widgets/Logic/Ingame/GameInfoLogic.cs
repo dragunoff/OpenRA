@@ -17,12 +17,12 @@ using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Widgets.Logic
 {
-	public enum IngameInfoPanel { AutoSelect, Map, Objectives, Debug, Chat }
+	public enum IngameInfoPanel { AutoSelect, Map, Objectives, Debug, Chat, LobbbyOptions }
 
 	class GameInfoLogic : ChromeLogic
 	{
 		[ObjectCreator.UseCtor]
-		public GameInfoLogic(Widget widget, World world, IngameInfoPanel activePanel, Action<bool> hideMenu)
+		public GameInfoLogic(Widget widget, ModData modData, World world, IngameInfoPanel activePanel, Action<bool> hideMenu)
 		{
 			var lp = world.LocalPlayer;
 			var numTabs = 0;
@@ -76,6 +76,26 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				if (activePanel == IngameInfoPanel.AutoSelect)
 					activePanel = IngameInfoPanel.Map;
 			}
+
+			// Lobby Options tab
+			numTabs++;
+			var optionsTabButton = widget.Get<ButtonWidget>(string.Concat("BUTTON", numTabs.ToString()));
+			optionsTabButton.Text = "Options";
+			optionsTabButton.IsVisible = () => numTabs > 1 && !hasError;
+			optionsTabButton.OnClick = () => activePanel = IngameInfoPanel.LobbbyOptions;
+			optionsTabButton.IsHighlighted = () => activePanel == IngameInfoPanel.LobbbyOptions;
+
+			var optionsPanel = widget.Get<ContainerWidget>("LOBBY_OPTIONS_PANEL");
+			optionsPanel.IsVisible = () => activePanel == IngameInfoPanel.LobbbyOptions;
+
+			Game.LoadWidget(world, "LOBBY_OPTIONS_PANEL", optionsPanel, new WidgetArgs()
+			{
+				{ "getMap", (Func<MapPreview>)(() => modData.MapCache[world.Map.Uid]) },
+				{ "configurationDisabled", (Func<bool>)(() => true) }
+			});
+
+			if (activePanel == IngameInfoPanel.AutoSelect)
+				activePanel = IngameInfoPanel.LobbbyOptions;
 
 			// Debug/Cheats tab
 			// Can't use DeveloperMode.Enabled because there is a hardcoded hack to *always*
