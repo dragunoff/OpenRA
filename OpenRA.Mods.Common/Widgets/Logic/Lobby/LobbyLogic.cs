@@ -12,11 +12,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Network;
-using OpenRA.Primitives;
 using OpenRA.Traits;
 using OpenRA.Widgets;
 
@@ -47,7 +45,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly Widget newSpectatorTemplate;
 
 		readonly ScrollPanelWidget lobbyChatPanel;
-		readonly Widget chatTemplate;
+		readonly Dictionary<string, string> chatTemplates = new Dictionary<string, string>();
 
 		readonly ScrollPanelWidget players;
 
@@ -397,6 +395,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (skirmishMode)
 				disconnectButton.Text = "Back";
 
+			if (logicArgs.TryGetValue("ChatTemplates", out var templateIds))
+				chatTemplates = templateIds.ToDictionary(kv => kv.Value);
+
 			var chatMode = lobby.Get<ButtonWidget>("CHAT_MODE");
 			chatMode.GetText = () => teamChat ? "Team" : "All";
 			chatMode.OnClick = () => teamChat ^= true;
@@ -439,7 +440,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			chatTextField.OnEscKey = _ => { chatTextField.Text = ""; return true; };
 
 			lobbyChatPanel = lobby.Get<ScrollPanelWidget>("CHAT_DISPLAY");
-			chatTemplate = lobbyChatPanel.Get("CHAT_TEMPLATE");
 			lobbyChatPanel.RemoveChildren();
 
 			var settingsButton = lobby.GetOrNull<ButtonWidget>("SETTINGS_BUTTON");
@@ -489,13 +489,17 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				panel = PanelType.Players;
 		}
 
-		void AddChatLine(TextNotification chatLine)
+		void AddChatLine(TextNotification notification)
 		{
-			var template = (ContainerWidget)chatTemplate.Clone();
-			LobbyUtils.SetupChatLine(template, DateTime.Now, chatLine);
+			var chatLine = Ui.LoadWidget(chatTemplates[notification.Pool.ToString()], null, new WidgetArgs
+			{
+				{ "notification", notification },
+				{ "boxWidth", lobbyChatPanel.Bounds.Width - lobbyChatPanel.ScrollbarWidth },
+				{ "withTimestamp", true }
+			});
 
 			var scrolledToBottom = lobbyChatPanel.ScrolledToBottom;
-			lobbyChatPanel.AddChild(template);
+			lobbyChatPanel.AddChild(chatLine);
 			if (scrolledToBottom)
 				lobbyChatPanel.ScrollToBottom(smooth: true);
 
