@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Widgets
 		public string ChatTemplate = "CHAT_LINE_TEMPLATE";
 		public string SystemTemplate = "SYSTEM_LINE_TEMPLATE";
 		public string MissionTemplate = "SYSTEM_LINE_TEMPLATE";
-		public string FeedbackTemplate = "SYSTEM_LINE_TEMPLATE";
+		public string FeedbackTemplate = "TRANSIENT_LINE_TEMPLATE";
 		readonly Dictionary<string, string> templates = new Dictionary<string, string>();
 
 		readonly List<int> expirations = new List<int>();
