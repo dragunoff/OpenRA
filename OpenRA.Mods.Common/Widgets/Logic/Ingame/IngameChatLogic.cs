@@ -137,12 +137,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			chatText.OnTabKey = () =>
 			{
-				if (Game.GetModifierKeys().HasModifier(Modifiers.Shift) && !disableTeamChat)
-					teamChat ^= true;
-				else {
+				if (!Game.GetModifierKeys().HasModifier(Modifiers.Shift))
+				{
 					chatText.Text = tabCompletion.Complete(chatText.Text);
 					chatText.CursorPosition = chatText.Text.Length;
 				}
+				else if (!disableTeamChat)
+					teamChat ^= true;
 
 				return true;
 			};
