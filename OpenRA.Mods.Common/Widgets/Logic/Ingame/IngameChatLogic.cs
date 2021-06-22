@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Mods.Common.Commands;
+using OpenRA.Mods.Common.Lint;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Network;
 using OpenRA.Primitives;
@@ -20,6 +21,7 @@ using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Widgets.Logic
 {
+	[ChromeLogicArgsHotkeys("OpenChat", "OpenAllChat")]
 	public class IngameChatLogic : ChromeLogic
 	{
 		readonly OrderManager orderManager;
@@ -160,6 +162,14 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			if (!isMenuChat)
 			{
+				var openChatKey = new HotkeyReference();
+				if (logicArgs.TryGetValue("OpenChatKey", out var hotkeyArg))
+					openChatKey = modData.Hotkeys[hotkeyArg.Value];
+
+				var openAllChatKey = new HotkeyReference();
+				if (logicArgs.TryGetValue("OpenAllChatKey", out hotkeyArg))
+					openAllChatKey = modData.Hotkeys[hotkeyArg.Value];
+
 				var chatClose = chatChrome.Get<ButtonWidget>("CHAT_CLOSE");
 				chatClose.OnClick += CloseChat;
 
@@ -168,10 +178,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					if (e.Event == KeyInputEvent.Up)
 						return false;
 
-					if (!chatChrome.IsVisible() && (e.Key == Keycode.RETURN || e.Key == Keycode.KP_ENTER))
+					if (!chatChrome.IsVisible() && (openChatKey.IsActivatedBy(e) || openAllChatKey.IsActivatedBy(e)))
 					{
-						// If enabled, [Enter] opens all chat and [Shift+Enter] opens team chat
-						teamChat = !disableTeamChat & !Game.GetModifierKeys().HasModifier(Modifiers.Shift);
+						teamChat = !disableTeamChat && !openAllChatKey.IsActivatedBy(e);
 
 						OpenChat();
 						return true;

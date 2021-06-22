@@ -4,6 +4,8 @@ Container@CHAT_PANEL:
 	Width: 550
 	Height: 194
 	Logic: IngameChatLogic
+		OpenChatKey: OpenChat
+		OpenAllChatKey: OpenAllChat
 	Children:
 		Container@CHAT_OVERLAY:
 			Width: PARENT_RIGHT - 24
