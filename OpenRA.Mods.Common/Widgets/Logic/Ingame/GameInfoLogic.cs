@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Mods.Common.Scripting;
 using OpenRA.Mods.Common.Traits;
@@ -21,11 +22,23 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 	class GameInfoLogic : ChromeLogic
 	{
+		readonly Widget tabContainer;
+		readonly ButtonWidget tabTemplate;
+		readonly int2 buttonStride;
+		readonly List<ButtonWidget> buttons = new List<ButtonWidget>();
+
 		[ObjectCreator.UseCtor]
-		public GameInfoLogic(Widget widget, ModData modData, World world, IngameInfoPanel activePanel, Action<bool> hideMenu)
+		public GameInfoLogic(Widget widget, ModData modData, World world, IngameInfoPanel activePanel, Action<bool> hideMenu, Dictionary<string, MiniYaml> logicArgs)
 		{
 			var lp = world.LocalPlayer;
 			var numTabs = 0;
+
+			tabContainer = widget.Get("TAB_CONTAINER");
+			tabTemplate = tabContainer.Get<ButtonWidget>("BUTTON_TEMPLATE");
+			tabContainer.RemoveChild(tabTemplate);
+
+			if (logicArgs.TryGetValue("ButtonStride", out var buttonStrideNode))
+				buttonStride = FieldLoader.GetValue<int2>("ButtonStride", buttonStrideNode.Value);
 
 			widget.IsVisible = () => activePanel != IngameInfoPanel.AutoSelect;
 
@@ -38,8 +51,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (hasObjectivesPanel)
 			{
 				numTabs++;
-				var objectivesTabButton = widget.Get<ButtonWidget>(string.Concat("BUTTON", numTabs.ToString()));
-				objectivesTabButton.GetText = () => "Objectives";
+				var objectivesTabButton = AddTab(string.Concat("BUTTON", numTabs.ToString()), "Objectives");
 				objectivesTabButton.IsVisible = () => numTabs > 1 && !hasError;
 				objectivesTabButton.OnClick = () => activePanel = IngameInfoPanel.Objectives;
 				objectivesTabButton.IsHighlighted = () => activePanel == IngameInfoPanel.Objectives;
@@ -62,8 +74,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (missionData != null && !string.IsNullOrEmpty(missionData.Briefing))
 			{
 				numTabs++;
-				var mapTabButton = widget.Get<ButtonWidget>(string.Concat("BUTTON", numTabs.ToString()));
-				mapTabButton.Text = "Briefing";
+				var mapTabButton = AddTab(string.Concat("BUTTON", numTabs.ToString()), "Briefing");
 				mapTabButton.IsVisible = () => numTabs > 1 && !hasError;
 				mapTabButton.OnClick = () => activePanel = IngameInfoPanel.Map;
 				mapTabButton.IsHighlighted = () => activePanel == IngameInfoPanel.Map;
@@ -79,8 +90,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			// Lobby Options tab
 			numTabs++;
-			var optionsTabButton = widget.Get<ButtonWidget>(string.Concat("BUTTON", numTabs.ToString()));
-			optionsTabButton.Text = "Options";
+			var optionsTabButton = AddTab(string.Concat("BUTTON", numTabs.ToString()), "Options");
 			optionsTabButton.IsVisible = () => numTabs > 1 && !hasError;
 			optionsTabButton.OnClick = () => activePanel = IngameInfoPanel.LobbbyOptions;
 			optionsTabButton.IsHighlighted = () => activePanel == IngameInfoPanel.LobbbyOptions;
@@ -106,8 +116,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (lp != null && developerEnabled)
 			{
 				numTabs++;
-				var debugTabButton = widget.Get<ButtonWidget>(string.Concat("BUTTON", numTabs.ToString()));
-				debugTabButton.Text = "Debug";
+				var debugTabButton = AddTab(string.Concat("BUTTON", numTabs.ToString()), "Debug");
 				debugTabButton.IsVisible = () => numTabs > 1 && !hasError;
 				debugTabButton.IsDisabled = () => world.IsGameOver;
 				debugTabButton.OnClick = () => activePanel = IngameInfoPanel.Debug;
@@ -126,8 +135,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			{
 				numTabs++;
 				var chatPanelContainer = widget.Get<ContainerWidget>("CHAT_PANEL");
-				var chatTabButton = widget.Get<ButtonWidget>(string.Concat("BUTTON", numTabs.ToString()));
-				chatTabButton.Text = "Chat";
+				var chatTabButton = AddTab(string.Concat("BUTTON", numTabs.ToString()), "Chat");
 				chatTabButton.IsVisible = () => numTabs > 1 && !hasError;
 				chatTabButton.IsHighlighted = () => activePanel == IngameInfoPanel.Chat;
 				chatTabButton.OnClick = () =>
@@ -167,6 +175,24 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			bg.IsVisible = () => numTabs > 1 || (numTabs == 1 && bgNoTabs == null);
 			if (bgNoTabs != null)
 				bgNoTabs.IsVisible = () => numTabs == 1;
+		}
+
+		ButtonWidget AddTab(string id, string label)
+		{
+			var tab = tabTemplate.Clone() as ButtonWidget;
+			var lastButton = buttons.LastOrDefault();
+			if (lastButton != null)
+			{
+				tab.Bounds.X = lastButton.Bounds.X + buttonStride.X;
+				tab.Bounds.Y = lastButton.Bounds.Y + buttonStride.Y;
+			}
+
+			tab.Id = id;
+			tab.GetText = () => label;
+			tabContainer.AddChild(tab);
+			buttons.Add(tab);
+
+			return tab;
 		}
 	}
 }

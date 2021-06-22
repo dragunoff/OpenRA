@@ -4,6 +4,7 @@ Container@GAME_INFO_PANEL:
 	Width: 512
 	Height: 405
 	Logic: GameInfoLogic
+		ButtonStride: 120, 0
 	Visible: False
 	Children:
 		Label@TITLE:
@@ -22,29 +23,10 @@ Container@GAME_INFO_PANEL:
 			Contrast: true
 		Container@TAB_CONTAINER:
 			Children:
-				Button@BUTTON1:
+				Button@BUTTON_TEMPLATE:
 					Y: 5
-					Width: 140
+					Width: 110
 					Height: 35
-					Visible: False
-				Button@BUTTON2:
-					X: 150
-					Y: 5
-					Width: 140
-					Height: 35
-					Visible: False
-				Button@BUTTON3:
-					X: 300
-					Y: 5
-					Width: 140
-					Height: 35
-					Visible: False
-				Button@BUTTON4:
-					X: 450
-					Y: 5
-					Width: 140
-					Height: 35
-					Visible: False
 		Background@BACKGROUND:
 			Y: 39
 			Width: PARENT_RIGHT
